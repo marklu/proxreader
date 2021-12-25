@@ -17,7 +17,7 @@ int main() {
     LCD_Clear();
     LCD_String(outputStr);
     i++;
-    _delay_ms(1000);
+    _delay_ms(100);
   }
 
   return 0;

@@ -11,7 +11,6 @@ void LCD_Send(char rs, char data)  {
 
   LCD_Command_Port &= ~(1<<RW); /* RW=0 write operation */
   LCD_Command_Port |= (1<<EN); /* Enable Pulse */
-  _delay_us(1);
   LCD_Command_Port &= ~(1<<EN);
   _delay_ms(2); /* Data write delay */
 }
