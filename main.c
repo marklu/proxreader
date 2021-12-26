@@ -16,7 +16,9 @@ int main() {
     result = wiegand_read(&count); // blocks until read
 
     if (count == 26) {
-      sprintf(output, "%u %u", (uint8_t)((result >> 17) & 0xff), (uint16_t)((result >> 1) & 0xffff));
+      sprintf(output, "%03u %05u", (uint8_t)((result >> 17) & 0xff), (uint16_t)((result >> 1) & 0xffff));
+    } else if (count == 35) {
+      sprintf(output, "%04u %07lu", (uint16_t)((result >> 21) & 0xfff), (uint32_t)((result >> 1) & 0xfffff));
     } else {
       sprintf(output, "%ub %X%08lX", count, (uint16_t)(result >> 32 & 0xffff), (uint32_t)(result & 0xffffffff));
     }
