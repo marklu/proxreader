@@ -2,7 +2,7 @@
 #include <avr/io.h>
 #include <avr/sleep.h>
 
-volatile uint32_t wiegand_result;
+volatile uint64_t wiegand_result;
 volatile int wiegand_count;
 volatile int wiegand_timeout;
 
@@ -29,7 +29,7 @@ void wiegand_init() {
   MCUCR = 0x0a; // INT0, INT1 on falling edge
 }
 
-uint32_t wiegand_read() {
+uint64_t wiegand_read(int *count) {
   wiegand_result = 0;
   wiegand_count = 0;
   wiegand_timeout = 0;
@@ -47,5 +47,6 @@ uint32_t wiegand_read() {
 
   TCCR0 = 0; // disable timer0
   TIMSK &= ~(1 << TOIE0); // disable timer0 interrupts
+  *count = wiegand_count;
   return wiegand_result;
 }
