@@ -14,7 +14,7 @@ int main() {
 
   LCD_Clear();
   while (1) {
-    result = wiegand_read(26); // blocks until read
+    result = wiegand_read(); // blocks until read
 
     facility = (result >> 17) & 0xff;
     card = (result >> 1) & 0xffff;
