@@ -13,6 +13,8 @@ void LCD_Send(char, char);
 #define LCD_Command(data) LCD_Send(0, data);
 #define LCD_Data(data) LCD_Send(1, data);
 
+#define LCD_Cursor(r, c) LCD_Command(0x80 | (r << 6) | c);
+
 void LCD_Clear();
 void LCD_Init();
 void LCD_String(char*);
