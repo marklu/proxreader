@@ -1,7 +1,7 @@
 PRJ = main
 MCU = atmega8515
 CLK = 8000000
-SRC = main.c lcd.c
+SRC = main.c lcd.c wiegand.c
 
 INCLUDE := $(foreach dir, $(EXT), -I$(dir))
 CFLAGS = -Wall -Os -DF_CPU=$(CLK) -mmcu=$(MCU) $(INCLUDE)

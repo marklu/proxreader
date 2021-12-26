@@ -1,23 +1,27 @@
-#include <avr/io.h>
-#include <avr/interrupt.h>
-#include <avr/sleep.h>
-#include <stdlib.h>
+#include <stdio.h>
 
 #include "lcd.h"
+#include "wiegand.h"
 
 int main() {
   LCD_Init();
-  LCD_String("Hello World");
-  _delay_ms(2000);
+  wiegand_init();
 
-  int i = 0;
-  char* outputStr = malloc(16);
-  while(1) {
-    itoa(i, outputStr, 10);
+  uint32_t result;
+  uint8_t facility;
+  uint16_t card;
+  char output[16];
+
+  LCD_Clear();
+  while (1) {
+    result = wiegand_read(26); // blocks until read
+
+    facility = (result >> 17) & 0xff;
+    card = (result >> 1) & 0xffff;
+
+    sprintf(output, "%u %u", facility, card);
     LCD_Clear();
-    LCD_String(outputStr);
-    i++;
-    _delay_ms(100);
+    LCD_String(output);
   }
 
   return 0;
